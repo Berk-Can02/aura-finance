@@ -216,7 +216,7 @@ export default function Settings() {
                     <p className="text-xs text-muted-foreground">Switch between light and dark themes</p>
                   </div>
                 </div>
-                <Switch checked={darkMode} onCheckedChange={setDarkMode} />
+                <Switch checked={darkMode} onCheckedChange={handleToggleDarkMode} />
               </div>
 
               <Separator />
@@ -233,7 +233,8 @@ export default function Settings() {
                   ].map((color) => (
                     <button
                       key={color.name}
-                      className={`w-9 h-9 rounded-full ${color.class} ring-2 ring-offset-2 ring-offset-background ${color.name === "Green" ? "ring-primary" : "ring-transparent"} hover:scale-110 transition-transform`}
+                      onClick={() => setAccentColor(color.name)}
+                      className={`w-9 h-9 rounded-full ${color.class} ring-2 ring-offset-2 ring-offset-background ${accentColor === color.name ? "ring-primary" : "ring-transparent"} hover:scale-110 transition-transform`}
                       title={color.name}
                     />
                   ))}
@@ -248,8 +249,9 @@ export default function Settings() {
                   {["Compact", "Comfortable"].map((layout) => (
                     <button
                       key={layout}
+                      onClick={() => setDashboardLayout(layout)}
                       className={`p-4 rounded-lg border text-sm font-medium text-center transition-colors ${
-                        layout === "Comfortable" ? "border-primary bg-primary/5 text-primary" : "border-border text-muted-foreground hover:border-primary/50"
+                        dashboardLayout === layout ? "border-primary bg-primary/5 text-primary" : "border-border text-muted-foreground hover:border-primary/50"
                       }`}
                     >
                       {layout}
@@ -317,20 +319,20 @@ export default function Settings() {
             <CardContent className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="current-password">Current Password</Label>
-                <Input id="current-password" type="password" placeholder="••••••••" />
+                <Input id="current-password" type="password" placeholder="••••••••" value={passwords.current} onChange={(e) => setPasswords({ ...passwords, current: e.target.value })} />
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="new-password">New Password</Label>
-                  <Input id="new-password" type="password" placeholder="••••••••" />
+                  <Input id="new-password" type="password" placeholder="••••••••" value={passwords.new} onChange={(e) => setPasswords({ ...passwords, new: e.target.value })} />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="confirm-password">Confirm New Password</Label>
-                  <Input id="confirm-password" type="password" placeholder="••••••••" />
+                  <Input id="confirm-password" type="password" placeholder="••••••••" value={passwords.confirm} onChange={(e) => setPasswords({ ...passwords, confirm: e.target.value })} />
                 </div>
               </div>
               <div className="flex justify-end">
-                <Button className="gap-2"><Save className="w-4 h-4" /> Update Password</Button>
+                <Button onClick={handleUpdatePassword} className="gap-2"><Save className="w-4 h-4" /> Update Password</Button>
               </div>
             </CardContent>
           </Card>
@@ -347,11 +349,13 @@ export default function Settings() {
                     <Shield className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-foreground">2FA is disabled</p>
-                    <p className="text-xs text-muted-foreground">Protect your account with two-factor authentication</p>
+                    <p className="text-sm font-medium text-foreground">{twoFactorEnabled ? "2FA is enabled" : "2FA is disabled"}</p>
+                    <p className="text-xs text-muted-foreground">{twoFactorEnabled ? "Your account is protected with 2FA" : "Protect your account with two-factor authentication"}</p>
                   </div>
                 </div>
-                <Button variant="outline" size="sm">Enable <ChevronRight className="w-4 h-4 ml-1" /></Button>
+                <Button variant={twoFactorEnabled ? "destructive" : "outline"} size="sm" onClick={handleToggle2FA}>
+                  {twoFactorEnabled ? "Disable" : "Enable"} <ChevronRight className="w-4 h-4 ml-1" />
+                </Button>
               </div>
             </CardContent>
           </Card>
