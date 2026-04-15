@@ -34,7 +34,10 @@ export default function Settings() {
   });
   const [currency, setCurrency] = useState("TRY");
   const [language, setLanguage] = useState("en");
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => document.documentElement.classList.contains("dark"));
+  const [accentColor, setAccentColor] = useState("Green");
+  const [dashboardLayout, setDashboardLayout] = useState("Comfortable");
+  const [twoFactorEnabled, setTwoFactorEnabled] = useState(false);
   const [notifications, setNotifications] = useState({
     email: true,
     push: true,
@@ -43,8 +46,18 @@ export default function Settings() {
     aiInsights: true,
     billReminders: true,
   });
+  const [passwords, setPasswords] = useState({ current: "", new: "", confirm: "" });
+
+  const handleToggleDarkMode = (checked: boolean) => {
+    setDarkMode(checked);
+    document.documentElement.classList.toggle("dark", checked);
+  };
 
   const handleSaveProfile = () => {
+    if (!profile.name.trim() || !profile.email.trim()) {
+      toast({ title: "Validation error", description: "Name and email are required.", variant: "destructive" });
+      return;
+    }
     toast({ title: "Profile updated", description: "Your profile has been saved successfully." });
   };
 
@@ -54,6 +67,31 @@ export default function Settings() {
 
   const handleSaveAppearance = () => {
     toast({ title: "Appearance updated", description: "Your display preferences have been saved." });
+  };
+
+  const handleUpdatePassword = () => {
+    if (!passwords.current) {
+      toast({ title: "Error", description: "Please enter your current password.", variant: "destructive" });
+      return;
+    }
+    if (passwords.new.length < 8) {
+      toast({ title: "Error", description: "New password must be at least 8 characters.", variant: "destructive" });
+      return;
+    }
+    if (passwords.new !== passwords.confirm) {
+      toast({ title: "Error", description: "New passwords do not match.", variant: "destructive" });
+      return;
+    }
+    setPasswords({ current: "", new: "", confirm: "" });
+    toast({ title: "Password updated", description: "Your password has been changed successfully." });
+  };
+
+  const handleToggle2FA = () => {
+    setTwoFactorEnabled(!twoFactorEnabled);
+    toast({
+      title: twoFactorEnabled ? "2FA Disabled" : "2FA Enabled",
+      description: twoFactorEnabled ? "Two-factor authentication has been disabled." : "Two-factor authentication is now active.",
+    });
   };
 
   const handleDeleteAccount = () => {
