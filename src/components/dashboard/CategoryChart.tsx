@@ -1,14 +1,19 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recharts";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getCategoryData } from "@/data/mockData";
+import { usePreferences } from "@/contexts/PreferencesContext";
 
 export function CategoryChart() {
-  const data = getCategoryData();
+  const { t } = useTranslation();
+  const { formatCurrency } = usePreferences();
+  const rawData = getCategoryData();
+  const data = rawData.map((d) => ({ ...d, name: t(`categories.${d.id}`, d.name) }));
 
   return (
     <Card className="overflow-hidden">
       <CardHeader className="pb-2">
-        <CardTitle className="text-lg font-semibold">Spending by Category</CardTitle>
+        <CardTitle className="text-lg font-semibold">{t("dashboard.spendingByCategory")}</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="h-[280px]">
@@ -29,7 +34,7 @@ export function CategoryChart() {
                 ))}
               </Pie>
               <Tooltip
-                formatter={(value: number) => [`$${value.toFixed(2)}`, ""]}
+                formatter={(value: number) => [formatCurrency(value), ""]}
                 contentStyle={{
                   backgroundColor: "hsl(var(--card))",
                   border: "1px solid hsl(var(--border))",

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -17,6 +18,7 @@ const months = [
 ];
 
 export default function Budget() {
+  const { t } = useTranslation();
   const [selectedMonth, setSelectedMonth] = useState(mockMonthlyBudget.month);
   const [selectedYear, setSelectedYear] = useState(mockMonthlyBudget.year);
   const [categories, setCategories] = useState(mockMonthlyBudget.categories);
@@ -32,10 +34,8 @@ export default function Budget() {
   };
 
   const handleSaveBudget = (categoryId: string, newAmount: number) => {
-    setCategories(prev => 
-      prev.map(cat => 
-        cat.id === categoryId ? { ...cat, allocated: newAmount } : cat
-      )
+    setCategories(prev =>
+      prev.map(cat => cat.id === categoryId ? { ...cat, allocated: newAmount } : cat)
     );
   };
 
@@ -61,25 +61,24 @@ export default function Budget() {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Budget</h1>
-          <p className="text-muted-foreground mt-1">Set and track your monthly budgets</p>
+          <h1 className="text-3xl font-bold text-foreground">{t("budgetPage.title")}</h1>
+          <p className="text-muted-foreground mt-1">{t("budgetPage.subtitle")}</p>
         </div>
-        
+
         <div className="flex items-center gap-2">
           <Button variant="outline" size="icon" onClick={handlePrevMonth}>
             <ChevronLeft className="h-4 w-4" />
           </Button>
           <div className="flex items-center gap-2">
             <Select value={selectedMonth} onValueChange={setSelectedMonth}>
-              <SelectTrigger className="w-[140px]">
-                <SelectValue />
+              <SelectTrigger className="w-[160px]">
+                <SelectValue>{t(`months.${selectedMonth}`)}</SelectValue>
               </SelectTrigger>
               <SelectContent className="bg-popover">
                 {months.map(month => (
-                  <SelectItem key={month} value={month}>{month}</SelectItem>
+                  <SelectItem key={month} value={month}>{t(`months.${month}`)}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -100,28 +99,26 @@ export default function Budget() {
         </div>
       </div>
 
-      {/* Budget Overview Cards */}
-      <BudgetOverview 
+      <BudgetOverview
         totalBudget={totalBudget}
         totalSpent={totalSpent}
         month={selectedMonth}
         year={selectedYear}
       />
 
-      {/* Category Budgets */}
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle className="text-lg font-semibold">Category Budgets</CardTitle>
+          <CardTitle className="text-lg font-semibold">{t("budgetPage.categoryBudgets")}</CardTitle>
           <Button variant="outline" size="sm" className="gap-2">
             <Settings2 className="h-4 w-4" />
-            Manage Categories
+            {t("budgetPage.manageCategories")}
           </Button>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {categories.map(category => (
-              <CategoryBudgetCard 
-                key={category.id} 
+              <CategoryBudgetCard
+                key={category.id}
                 category={category}
                 onEdit={handleEditCategory}
               />
@@ -130,16 +127,13 @@ export default function Budget() {
         </CardContent>
       </Card>
 
-      {/* AI Budget Predictions */}
       <AIBudgetPredictions />
 
-      {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <BudgetChart categories={categories} />
         <SpendingTrendChart />
       </div>
 
-      {/* Edit Dialog */}
       <EditBudgetDialog
         category={editingCategory}
         open={dialogOpen}

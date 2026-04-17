@@ -10,18 +10,10 @@ import {
   ChevronRight,
   Wallet,
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-
-const navItems = [
-  { path: "/", label: "Dashboard", icon: LayoutDashboard },
-  { path: "/add-expense", label: "Add Expense", icon: Plus },
-  { path: "/expenses", label: "Expenses", icon: List },
-  { path: "/groups", label: "Groups", icon: Users },
-  { path: "/budget", label: "Budget", icon: PiggyBank },
-  { path: "/settings", label: "Settings", icon: Settings },
-];
 
 interface SidebarProps {
   collapsed: boolean;
@@ -30,6 +22,16 @@ interface SidebarProps {
 
 export function Sidebar({ collapsed, onToggle }: SidebarProps) {
   const location = useLocation();
+  const { t } = useTranslation();
+
+  const navItems = [
+    { path: "/", labelKey: "nav.dashboard", icon: LayoutDashboard },
+    { path: "/add-expense", labelKey: "nav.addExpense", icon: Plus },
+    { path: "/expenses", labelKey: "nav.expenses", icon: List },
+    { path: "/groups", labelKey: "nav.groups", icon: Users },
+    { path: "/budget", labelKey: "nav.budget", icon: PiggyBank },
+    { path: "/settings", labelKey: "nav.settings", icon: Settings },
+  ];
 
   return (
     <aside
@@ -45,8 +47,8 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
         </div>
         {!collapsed && (
           <div className="animate-fade-in">
-            <h1 className="font-bold text-lg text-sidebar-foreground">FinanceAI</h1>
-            <p className="text-xs text-sidebar-foreground/60">Smart Tracking</p>
+            <h1 className="font-bold text-lg text-sidebar-foreground">{t("nav.appName")}</h1>
+            <p className="text-xs text-sidebar-foreground/60">{t("nav.appTagline")}</p>
           </div>
         )}
       </div>
@@ -56,6 +58,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
         {navItems.map((item) => {
           const isActive = location.pathname === item.path;
           const Icon = item.icon;
+          const label = t(item.labelKey);
 
           const linkContent = (
             <NavLink
@@ -69,9 +72,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
               )}
             >
               <Icon className="w-5 h-5 flex-shrink-0" />
-              {!collapsed && (
-                <span className="font-medium animate-fade-in">{item.label}</span>
-              )}
+              {!collapsed && <span className="font-medium animate-fade-in">{label}</span>}
             </NavLink>
           );
 
@@ -80,7 +81,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
               <Tooltip key={item.path} delayDuration={0}>
                 <TooltipTrigger asChild>{linkContent}</TooltipTrigger>
                 <TooltipContent side="right" className="font-medium">
-                  {item.label}
+                  {label}
                 </TooltipContent>
               </Tooltip>
             );
@@ -103,7 +104,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
           ) : (
             <>
               <ChevronLeft className="w-5 h-5 mr-2" />
-              <span>Collapse</span>
+              <span>{t("nav.collapse")}</span>
             </>
           )}
         </Button>
