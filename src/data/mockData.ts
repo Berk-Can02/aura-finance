@@ -8,6 +8,7 @@ export interface Expense {
 }
 
 export interface CategoryData {
+  id: string;
   name: string;
   value: number;
   color: string;
@@ -68,6 +69,7 @@ export const getCategoryData = (): CategoryData[] => {
   return categories
     .filter(cat => categoryTotals[cat.id])
     .map(cat => ({
+      id: cat.id,
       name: cat.name,
       value: categoryTotals[cat.id],
       color: cat.color,
