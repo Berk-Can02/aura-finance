@@ -1,0 +1,192 @@
+{
+  "nav": {
+    "dashboard": "Panel",
+    "addExpense": "Harcama Ekle",
+    "expenses": "Harcamalar",
+    "groups": "Gruplar",
+    "budget": "Bütçe",
+    "settings": "Ayarlar",
+    "collapse": "Daralt",
+    "appName": "FinanceAI",
+    "appTagline": "Akıllı Takip"
+  },
+  "common": {
+    "save": "Kaydet",
+    "saveChanges": "Değişiklikleri Kaydet",
+    "savePreferences": "Tercihleri Kaydet",
+    "cancel": "İptal",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "viewAll": "Tümünü gör",
+    "search": "Ara",
+    "loading": "Yükleniyor...",
+    "today": "Bugün",
+    "yesterday": "Dün",
+    "total": "Toplam",
+    "manage": "Yönet"
+  },
+  "dashboard": {
+    "title": "Panel",
+    "welcome": "Tekrar hoş geldiniz! İşte finansal özetiniz.",
+    "totalBalance": "Toplam Bakiye",
+    "monthlyIncome": "Aylık Gelir",
+    "monthlyExpenses": "Aylık Giderler",
+    "savingsRate": "Tasarruf Oranı",
+    "vsLastMonth": "geçen aya göre",
+    "spendingByCategory": "Kategoriye Göre Harcama",
+    "spendingTrends": "Harcama Trendleri",
+    "weekly": "Haftalık",
+    "monthly": "Aylık",
+    "bar": "Sütun",
+    "line": "Çizgi",
+    "spent": "Harcanan",
+    "recentTransactions": "Son İşlemler",
+    "aiInsightsTitle": "Yapay Zekâ Önerileri",
+    "aiInsightsSubtitle": "Makine öğrenmesi destekli kişiselleştirilmiş analiz",
+    "newInsights": "{{count}} yeni öngörü",
+    "aiAnalyzing": "Yapay zekâ son işlemlerinizi analiz ediyor..."
+  },
+  "expensesPage": {
+    "title": "Harcamalar",
+    "subtitle": "Tüm harcamalarınızı yönetin ve takip edin",
+    "showing": "Gösterilen",
+    "expensesCount": "harcama",
+    "searchPlaceholder": "Harcama ara..."
+  },
+  "groupsPage": {
+    "title": "Grup Harcamaları",
+    "subtitle": "Arkadaşlarınız ve aileniz ile harcamaları paylaşın",
+    "searchPlaceholder": "Grup ara...",
+    "noGroupsFound": "Grup bulunamadı",
+    "noGroupsYet": "Henüz grup yok",
+    "noResults": "Farklı bir arama terimi deneyin",
+    "createFirst": "Arkadaşlarınız ve aileniz ile harcamaları paylaşmak için ilk grubunuzu oluşturun."
+  },
+  "budgetPage": {
+    "title": "Bütçe",
+    "subtitle": "Aylık bütçelerinizi belirleyin ve takip edin",
+    "categoryBudgets": "Kategori Bütçeleri",
+    "manageCategories": "Kategorileri Yönet"
+  },
+  "addExpensePage": {
+    "title": "Harcama Ekle",
+    "subtitle": "Harcama kaydetmek için tercih ettiğiniz yöntemi seçin"
+  },
+  "settings": {
+    "title": "Ayarlar",
+    "subtitle": "Hesabınızı ve tercihlerinizi yönetin",
+    "tabs": {
+      "profile": "Profil",
+      "appearance": "Görünüm",
+      "notifications": "Bildirimler",
+      "security": "Güvenlik"
+    },
+    "profile": {
+      "title": "Profil Bilgileri",
+      "description": "Kişisel bilgilerinizi ve profil fotoğrafınızı güncelleyin",
+      "changePhoto": "Fotoğrafı Değiştir",
+      "photoHint": "JPG, PNG veya GIF. Maks. 2MB.",
+      "fullName": "Ad Soyad",
+      "email": "E-posta",
+      "phone": "Telefon",
+      "regional": "Bölgesel Ayarlar",
+      "regionalDesc": "Tercih ettiğiniz para birimi ve dili belirleyin",
+      "currency": "Para Birimi",
+      "language": "Dil"
+    },
+    "appearance": {
+      "title": "Görüntü Tercihleri",
+      "description": "Uygulamanın görünümünü özelleştirin",
+      "darkMode": "Koyu Mod",
+      "darkModeDesc": "Açık ve koyu tema arasında geçiş yapın",
+      "accentColor": "Vurgu Rengi",
+      "dashboardLayout": "Panel Düzeni",
+      "compact": "Sıkışık",
+      "comfortable": "Rahat"
+    },
+    "notifications": {
+      "title": "Bildirim Tercihleri",
+      "description": "Hangi konularda bildirim almak istediğinizi seçin",
+      "email": "E-posta Bildirimleri",
+      "emailDesc": "Güncellemeleri ve uyarıları e-posta ile alın",
+      "push": "Anlık Bildirimler",
+      "pushDesc": "Cihazınızda gerçek zamanlı uyarılar alın",
+      "budgetAlerts": "Bütçe Uyarıları",
+      "budgetAlertsDesc": "Harcamalar bütçeyi aştığında bildirim alın",
+      "weeklyReport": "Haftalık Raporlar",
+      "weeklyReportDesc": "Haftalık harcama özetinizi alın",
+      "aiInsights": "Yapay Zekâ Öngörüleri",
+      "aiInsightsDesc": "Yapay zekâ destekli finansal öneriler alın",
+      "billReminders": "Fatura Hatırlatmaları",
+      "billRemindersDesc": "Yaklaşan fatura ödemeleri için hatırlatmalar"
+    },
+    "security": {
+      "passwordTitle": "Parola",
+      "passwordDesc": "Hesap parolanızı değiştirin",
+      "currentPassword": "Mevcut Parola",
+      "newPassword": "Yeni Parola",
+      "confirmPassword": "Yeni Parolayı Onayla",
+      "updatePassword": "Parolayı Güncelle",
+      "twoFATitle": "İki Faktörlü Kimlik Doğrulama",
+      "twoFADesc": "Hesabınıza ek bir güvenlik katmanı ekleyin",
+      "twoFAEnabled": "2FA etkin",
+      "twoFADisabled": "2FA devre dışı",
+      "twoFAEnabledDesc": "Hesabınız 2FA ile korunuyor",
+      "twoFADisabledDesc": "Hesabınızı iki faktörlü kimlik doğrulama ile koruyun",
+      "enable": "Etkinleştir",
+      "disable": "Devre dışı bırak",
+      "dangerZone": "Tehlikeli Bölge",
+      "dangerZoneDesc": "Hesabınız için geri alınamaz işlemler",
+      "logoutAll": "Tüm cihazlardan çıkış yap",
+      "logoutAllDesc": "Tüm aktif oturumlardan çıkış yapın",
+      "logout": "Çıkış Yap",
+      "deleteAccount": "Hesabı sil",
+      "deleteAccountDesc": "Hesabınızı ve tüm verilerinizi kalıcı olarak silin"
+    },
+    "toasts": {
+      "profileSaved": "Profil güncellendi",
+      "profileSavedDesc": "Profiliniz başarıyla kaydedildi.",
+      "notifSaved": "Bildirimler güncellendi",
+      "notifSavedDesc": "Bildirim tercihleriniz kaydedildi.",
+      "appearanceSaved": "Görünüm güncellendi",
+      "appearanceSavedDesc": "Görüntü tercihleriniz kaydedildi.",
+      "preferencesSaved": "Tercihler kaydedildi",
+      "preferencesSavedDesc": "Dil ve para birimi güncellendi.",
+      "validationError": "Doğrulama hatası",
+      "nameEmailRequired": "Ad ve e-posta zorunludur.",
+      "passwordRequired": "Lütfen mevcut parolanızı girin.",
+      "passwordMin": "Yeni parola en az 8 karakter olmalıdır.",
+      "passwordMismatch": "Yeni parolalar eşleşmiyor.",
+      "passwordUpdated": "Parola güncellendi",
+      "passwordUpdatedDesc": "Parolanız başarıyla değiştirildi.",
+      "twoFAEnabled": "2FA Etkinleştirildi",
+      "twoFAEnabledDesc": "İki faktörlü kimlik doğrulama artık aktif.",
+      "twoFADisabled": "2FA Devre Dışı",
+      "twoFADisabledDesc": "İki faktörlü kimlik doğrulama devre dışı bırakıldı.",
+      "actionRequired": "İşlem gerekli",
+      "deleteAccountConfirm": "Lütfen hesap silme işlemini e-posta ile onaylayın.",
+      "loggedOut": "Çıkış yapıldı",
+      "loggedOutDesc": "Başarıyla çıkış yaptınız.",
+      "error": "Hata"
+    }
+  },
+  "categories": {
+    "food": "Yemek",
+    "transport": "Ulaşım",
+    "entertainment": "Eğlence",
+    "shopping": "Alışveriş",
+    "utilities": "Faturalar",
+    "health": "Sağlık",
+    "travel": "Seyahat",
+    "other": "Diğer"
+  },
+  "months": {
+    "January": "Ocak", "February": "Şubat", "March": "Mart", "April": "Nisan",
+    "May": "Mayıs", "June": "Haziran", "July": "Temmuz", "August": "Ağustos",
+    "September": "Eylül", "October": "Ekim", "November": "Kasım", "December": "Aralık"
+  },
+  "weekdays": {
+    "Mon": "Pzt", "Tue": "Sal", "Wed": "Çar", "Thu": "Per",
+    "Fri": "Cum", "Sat": "Cmt", "Sun": "Paz"
+  }
+}

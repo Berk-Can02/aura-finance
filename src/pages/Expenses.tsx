@@ -2,13 +2,17 @@ import { useState, useMemo } from "react";
 import { Plus } from "lucide-react";
 import { Link } from "react-router-dom";
 import { DateRange } from "react-day-picker";
+import { useTranslation } from "react-i18next";
 import { ExpenseFilters } from "@/components/expense/ExpenseFilters";
 import { ExpenseTable } from "@/components/expense/ExpenseTable";
 import { Button } from "@/components/ui/button";
 import { mockExpenses, Expense } from "@/data/mockData";
 import { useToast } from "@/hooks/use-toast";
+import { usePreferences } from "@/contexts/PreferencesContext";
 
 export default function Expenses() {
+  const { t } = useTranslation();
+  const { formatCurrency } = usePreferences();
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("all");
   const [sortBy, setSortBy] = useState("date-desc");
@@ -18,7 +22,6 @@ export default function Expenses() {
   const filteredExpenses = useMemo(() => {
     let result = [...mockExpenses];
 
-    // Search filter
     if (search) {
       const searchLower = search.toLowerCase();
       result = result.filter(
@@ -28,12 +31,10 @@ export default function Expenses() {
       );
     }
 
-    // Category filter
     if (category !== "all") {
       result = result.filter((e) => e.category === category);
     }
 
-    // Date range filter
     if (dateRange?.from) {
       result = result.filter((e) => {
         const expenseDate = new Date(e.date);
@@ -43,19 +44,13 @@ export default function Expenses() {
       });
     }
 
-    // Sort
     result.sort((a, b) => {
       switch (sortBy) {
-        case "date-asc":
-          return new Date(a.date).getTime() - new Date(b.date).getTime();
-        case "date-desc":
-          return new Date(b.date).getTime() - new Date(a.date).getTime();
-        case "amount-asc":
-          return a.amount - b.amount;
-        case "amount-desc":
-          return b.amount - a.amount;
-        default:
-          return 0;
+        case "date-asc": return new Date(a.date).getTime() - new Date(b.date).getTime();
+        case "date-desc": return new Date(b.date).getTime() - new Date(a.date).getTime();
+        case "amount-asc": return a.amount - b.amount;
+        case "amount-desc": return b.amount - a.amount;
+        default: return 0;
       }
     });
 
@@ -72,39 +67,28 @@ export default function Expenses() {
   };
 
   const handleEdit = (expense: Expense) => {
-    toast({
-      title: "Edit expense",
-      description: `Editing: ${expense.description}`,
-    });
+    toast({ title: t("common.edit"), description: expense.description });
   };
 
   const handleDelete = (expense: Expense) => {
-    toast({
-      title: "Delete expense",
-      description: `Deleted: ${expense.description}`,
-      variant: "destructive",
-    });
+    toast({ title: t("common.delete"), description: expense.description, variant: "destructive" });
   };
 
   return (
     <div className="space-y-6 animate-fade-in">
-      {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Expenses</h1>
-          <p className="text-muted-foreground mt-1">
-            Manage and track all your expenses
-          </p>
+          <h1 className="text-3xl font-bold text-foreground">{t("expensesPage.title")}</h1>
+          <p className="text-muted-foreground mt-1">{t("expensesPage.subtitle")}</p>
         </div>
         <Button asChild className="gradient-primary hover:opacity-90">
           <Link to="/add-expense">
             <Plus className="w-4 h-4 mr-2" />
-            Add Expense
+            {t("nav.addExpense")}
           </Link>
         </Button>
       </div>
 
-      {/* Filters */}
       <ExpenseFilters
         search={search}
         onSearchChange={setSearch}
@@ -117,22 +101,16 @@ export default function Expenses() {
         onClearFilters={handleClearFilters}
       />
 
-      {/* Summary */}
       <div className="flex items-center justify-between text-sm">
         <p className="text-muted-foreground">
-          Showing <span className="font-medium text-foreground">{filteredExpenses.length}</span> expenses
+          {t("expensesPage.showing")} <span className="font-medium text-foreground">{filteredExpenses.length}</span> {t("expensesPage.expensesCount")}
         </p>
         <p className="text-muted-foreground">
-          Total: <span className="font-semibold text-primary">${totalAmount.toFixed(2)}</span>
+          {t("common.total")}: <span className="font-semibold text-primary">{formatCurrency(totalAmount)}</span>
         </p>
       </div>
 
-      {/* Table */}
-      <ExpenseTable
-        expenses={filteredExpenses}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-      />
+      <ExpenseTable expenses={filteredExpenses} onEdit={handleEdit} onDelete={handleDelete} />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { LucideIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
@@ -21,6 +22,7 @@ const variantStyles = {
 };
 
 export function SummaryCard({ title, value, icon: Icon, trend, variant = "default" }: SummaryCardProps) {
+  const { t } = useTranslation();
   const isPrimary = variant !== "default";
 
   return (
@@ -46,7 +48,7 @@ export function SummaryCard({ title, value, icon: Icon, trend, variant = "defaul
                   : trend.isPositive ? "text-success" : "text-destructive"
               )}>
                 {trend.isPositive ? "↑" : "↓"} {Math.abs(trend.value)}%
-                <span className={isPrimary ? "text-current/60" : "text-muted-foreground"}>vs last month</span>
+                <span className={isPrimary ? "text-current/60" : "text-muted-foreground"}>{t("dashboard.vsLastMonth")}</span>
               </p>
             )}
           </div>

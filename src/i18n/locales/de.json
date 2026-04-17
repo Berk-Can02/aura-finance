@@ -1,0 +1,192 @@
+{
+  "nav": {
+    "dashboard": "Übersicht",
+    "addExpense": "Ausgabe hinzufügen",
+    "expenses": "Ausgaben",
+    "groups": "Gruppen",
+    "budget": "Budget",
+    "settings": "Einstellungen",
+    "collapse": "Einklappen",
+    "appName": "FinanceAI",
+    "appTagline": "Intelligentes Tracking"
+  },
+  "common": {
+    "save": "Speichern",
+    "saveChanges": "Änderungen speichern",
+    "savePreferences": "Einstellungen speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "viewAll": "Alle ansehen",
+    "search": "Suchen",
+    "loading": "Wird geladen...",
+    "today": "Heute",
+    "yesterday": "Gestern",
+    "total": "Gesamt",
+    "manage": "Verwalten"
+  },
+  "dashboard": {
+    "title": "Übersicht",
+    "welcome": "Willkommen zurück! Hier ist Ihre Finanzübersicht.",
+    "totalBalance": "Gesamtsaldo",
+    "monthlyIncome": "Monatliches Einkommen",
+    "monthlyExpenses": "Monatliche Ausgaben",
+    "savingsRate": "Sparquote",
+    "vsLastMonth": "vs. Vormonat",
+    "spendingByCategory": "Ausgaben nach Kategorie",
+    "spendingTrends": "Ausgabentrends",
+    "weekly": "Wöchentlich",
+    "monthly": "Monatlich",
+    "bar": "Balken",
+    "line": "Linie",
+    "spent": "Ausgegeben",
+    "recentTransactions": "Letzte Transaktionen",
+    "aiInsightsTitle": "KI-Einblicke & Empfehlungen",
+    "aiInsightsSubtitle": "Personalisierte Analyse mit maschinellem Lernen",
+    "newInsights": "{{count}} neue Einblicke",
+    "aiAnalyzing": "KI analysiert Ihre letzten Transaktionen..."
+  },
+  "expensesPage": {
+    "title": "Ausgaben",
+    "subtitle": "Verwalten und verfolgen Sie alle Ihre Ausgaben",
+    "showing": "Anzeigen",
+    "expensesCount": "Ausgaben",
+    "searchPlaceholder": "Ausgaben suchen..."
+  },
+  "groupsPage": {
+    "title": "Gruppenausgaben",
+    "subtitle": "Teilen Sie Ausgaben mit Freunden und Familie",
+    "searchPlaceholder": "Gruppen suchen...",
+    "noGroupsFound": "Keine Gruppen gefunden",
+    "noGroupsYet": "Noch keine Gruppen",
+    "noResults": "Versuchen Sie einen anderen Suchbegriff",
+    "createFirst": "Erstellen Sie Ihre erste Gruppe, um Ausgaben mit Freunden und Familie zu teilen."
+  },
+  "budgetPage": {
+    "title": "Budget",
+    "subtitle": "Legen Sie Ihre monatlichen Budgets fest und verfolgen Sie sie",
+    "categoryBudgets": "Kategorie-Budgets",
+    "manageCategories": "Kategorien verwalten"
+  },
+  "addExpensePage": {
+    "title": "Ausgabe hinzufügen",
+    "subtitle": "Wählen Sie Ihre bevorzugte Methode zur Erfassung einer Ausgabe"
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "subtitle": "Verwalten Sie Ihr Konto und Ihre Einstellungen",
+    "tabs": {
+      "profile": "Profil",
+      "appearance": "Darstellung",
+      "notifications": "Benachrichtigungen",
+      "security": "Sicherheit"
+    },
+    "profile": {
+      "title": "Profilinformationen",
+      "description": "Aktualisieren Sie Ihre persönlichen Daten und Ihr Profilbild",
+      "changePhoto": "Foto ändern",
+      "photoHint": "JPG, PNG oder GIF. Max. 2 MB.",
+      "fullName": "Vollständiger Name",
+      "email": "E-Mail",
+      "phone": "Telefon",
+      "regional": "Regionale Einstellungen",
+      "regionalDesc": "Legen Sie Ihre bevorzugte Währung und Sprache fest",
+      "currency": "Währung",
+      "language": "Sprache"
+    },
+    "appearance": {
+      "title": "Anzeigeeinstellungen",
+      "description": "Passen Sie das Erscheinungsbild der App an",
+      "darkMode": "Dunkler Modus",
+      "darkModeDesc": "Zwischen hellem und dunklem Design wechseln",
+      "accentColor": "Akzentfarbe",
+      "dashboardLayout": "Dashboard-Layout",
+      "compact": "Kompakt",
+      "comfortable": "Komfortabel"
+    },
+    "notifications": {
+      "title": "Benachrichtigungseinstellungen",
+      "description": "Wählen Sie, worüber Sie benachrichtigt werden möchten",
+      "email": "E-Mail-Benachrichtigungen",
+      "emailDesc": "Updates und Warnungen per E-Mail erhalten",
+      "push": "Push-Benachrichtigungen",
+      "pushDesc": "Echtzeit-Warnungen auf Ihrem Gerät",
+      "budgetAlerts": "Budget-Warnungen",
+      "budgetAlertsDesc": "Benachrichtigen, wenn Ausgaben das Budget überschreiten",
+      "weeklyReport": "Wochenberichte",
+      "weeklyReportDesc": "Wöchentliche Ausgabenzusammenfassung erhalten",
+      "aiInsights": "KI-Einblicke",
+      "aiInsightsDesc": "KI-gestützte Finanzempfehlungen erhalten",
+      "billReminders": "Rechnungserinnerungen",
+      "billRemindersDesc": "Erinnerungen für anstehende Rechnungen"
+    },
+    "security": {
+      "passwordTitle": "Passwort",
+      "passwordDesc": "Ändern Sie Ihr Kontopasswort",
+      "currentPassword": "Aktuelles Passwort",
+      "newPassword": "Neues Passwort",
+      "confirmPassword": "Neues Passwort bestätigen",
+      "updatePassword": "Passwort aktualisieren",
+      "twoFATitle": "Zwei-Faktor-Authentifizierung",
+      "twoFADesc": "Fügen Sie Ihrem Konto eine zusätzliche Sicherheitsebene hinzu",
+      "twoFAEnabled": "2FA ist aktiviert",
+      "twoFADisabled": "2FA ist deaktiviert",
+      "twoFAEnabledDesc": "Ihr Konto ist mit 2FA geschützt",
+      "twoFADisabledDesc": "Schützen Sie Ihr Konto mit Zwei-Faktor-Authentifizierung",
+      "enable": "Aktivieren",
+      "disable": "Deaktivieren",
+      "dangerZone": "Gefahrenzone",
+      "dangerZoneDesc": "Irreversible Aktionen für Ihr Konto",
+      "logoutAll": "Von allen Geräten abmelden",
+      "logoutAllDesc": "Alle aktiven Sitzungen beenden",
+      "logout": "Abmelden",
+      "deleteAccount": "Konto löschen",
+      "deleteAccountDesc": "Konto und alle Daten dauerhaft löschen"
+    },
+    "toasts": {
+      "profileSaved": "Profil aktualisiert",
+      "profileSavedDesc": "Ihr Profil wurde erfolgreich gespeichert.",
+      "notifSaved": "Benachrichtigungen aktualisiert",
+      "notifSavedDesc": "Ihre Benachrichtigungseinstellungen wurden gespeichert.",
+      "appearanceSaved": "Darstellung aktualisiert",
+      "appearanceSavedDesc": "Ihre Anzeigeeinstellungen wurden gespeichert.",
+      "preferencesSaved": "Einstellungen gespeichert",
+      "preferencesSavedDesc": "Sprache und Währung aktualisiert.",
+      "validationError": "Validierungsfehler",
+      "nameEmailRequired": "Name und E-Mail sind erforderlich.",
+      "passwordRequired": "Bitte geben Sie Ihr aktuelles Passwort ein.",
+      "passwordMin": "Das neue Passwort muss mindestens 8 Zeichen lang sein.",
+      "passwordMismatch": "Die neuen Passwörter stimmen nicht überein.",
+      "passwordUpdated": "Passwort aktualisiert",
+      "passwordUpdatedDesc": "Ihr Passwort wurde erfolgreich geändert.",
+      "twoFAEnabled": "2FA aktiviert",
+      "twoFAEnabledDesc": "Zwei-Faktor-Authentifizierung ist jetzt aktiv.",
+      "twoFADisabled": "2FA deaktiviert",
+      "twoFADisabledDesc": "Zwei-Faktor-Authentifizierung wurde deaktiviert.",
+      "actionRequired": "Aktion erforderlich",
+      "deleteAccountConfirm": "Bitte bestätigen Sie die Kontolöschung per E-Mail.",
+      "loggedOut": "Abgemeldet",
+      "loggedOutDesc": "Sie wurden erfolgreich abgemeldet.",
+      "error": "Fehler"
+    }
+  },
+  "categories": {
+    "food": "Essen & Trinken",
+    "transport": "Transport",
+    "entertainment": "Unterhaltung",
+    "shopping": "Einkaufen",
+    "utilities": "Nebenkosten",
+    "health": "Gesundheit",
+    "travel": "Reisen",
+    "other": "Sonstiges"
+  },
+  "months": {
+    "January": "Januar", "February": "Februar", "March": "März", "April": "April",
+    "May": "Mai", "June": "Juni", "July": "Juli", "August": "August",
+    "September": "September", "October": "Oktober", "November": "November", "December": "Dezember"
+  },
+  "weekdays": {
+    "Mon": "Mo", "Tue": "Di", "Wed": "Mi", "Thu": "Do",
+    "Fri": "Fr", "Sat": "Sa", "Sun": "So"
+  }
+}
