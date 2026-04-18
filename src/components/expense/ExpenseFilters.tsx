@@ -1,4 +1,5 @@
 import { Search, SlidersHorizontal, X } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -23,61 +24,51 @@ interface ExpenseFiltersProps {
 }
 
 export function ExpenseFilters({
-  search,
-  onSearchChange,
-  category,
-  onCategoryChange,
-  sortBy,
-  onSortChange,
-  dateRange,
-  onDateRangeChange,
-  onClearFilters,
+  search, onSearchChange, category, onCategoryChange,
+  sortBy, onSortChange, dateRange, onDateRangeChange, onClearFilters,
 }: ExpenseFiltersProps) {
+  const { t } = useTranslation();
   const hasActiveFilters = search || category !== "all" || sortBy !== "date-desc" || dateRange;
 
   return (
     <div className="space-y-4">
       <div className="flex flex-col sm:flex-row gap-3">
-        {/* Search */}
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <Input
-            placeholder="Search expenses..."
+            placeholder={t("expensesPage.searchPlaceholder")}
             value={search}
             onChange={(e) => onSearchChange(e.target.value)}
             className="pl-9"
           />
         </div>
 
-        {/* Category Filter */}
         <Select value={category} onValueChange={onCategoryChange}>
           <SelectTrigger className="w-full sm:w-[180px]">
-            <SelectValue placeholder="Category" />
+            <SelectValue placeholder={t("expensesPage.categoryPlaceholder")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Categories</SelectItem>
+            <SelectItem value="all">{t("expensesPage.allCategories")}</SelectItem>
             {categories.map((cat) => (
               <SelectItem key={cat.id} value={cat.id}>
-                {cat.name}
+                {t(`categories.${cat.id}`)}
               </SelectItem>
             ))}
           </SelectContent>
         </Select>
 
-        {/* Sort */}
         <Select value={sortBy} onValueChange={onSortChange}>
           <SelectTrigger className="w-full sm:w-[160px]">
-            <SelectValue placeholder="Sort by" />
+            <SelectValue placeholder={t("expensesPage.sortPlaceholder")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="date-desc">Newest first</SelectItem>
-            <SelectItem value="date-asc">Oldest first</SelectItem>
-            <SelectItem value="amount-desc">Highest amount</SelectItem>
-            <SelectItem value="amount-asc">Lowest amount</SelectItem>
+            <SelectItem value="date-desc">{t("expensesPage.sortNewest")}</SelectItem>
+            <SelectItem value="date-asc">{t("expensesPage.sortOldest")}</SelectItem>
+            <SelectItem value="amount-desc">{t("expensesPage.sortHighest")}</SelectItem>
+            <SelectItem value="amount-asc">{t("expensesPage.sortLowest")}</SelectItem>
           </SelectContent>
         </Select>
 
-        {/* Date Range */}
         <Popover>
           <PopoverTrigger asChild>
             <Button variant="outline" className={cn(
@@ -87,14 +78,12 @@ export function ExpenseFilters({
               <SlidersHorizontal className="mr-2 h-4 w-4" />
               {dateRange?.from ? (
                 dateRange.to ? (
-                  <>
-                    {format(dateRange.from, "LLL dd")} - {format(dateRange.to, "LLL dd")}
-                  </>
+                  <>{format(dateRange.from, "LLL dd")} - {format(dateRange.to, "LLL dd")}</>
                 ) : (
                   format(dateRange.from, "LLL dd, yyyy")
                 )
               ) : (
-                "Date range"
+                t("expensesPage.dateRange")
               )}
             </Button>
           </PopoverTrigger>
@@ -112,19 +101,18 @@ export function ExpenseFilters({
         </Popover>
       </div>
 
-      {/* Active Filters */}
       {hasActiveFilters && (
         <div className="flex items-center gap-2 flex-wrap">
-          <span className="text-sm text-muted-foreground">Active filters:</span>
+          <span className="text-sm text-muted-foreground">{t("expensesPage.activeFilters")}</span>
           {search && (
             <Badge variant="secondary" className="gap-1">
-              Search: {search}
+              {t("expensesPage.searchLabel")}: {search}
               <X className="w-3 h-3 cursor-pointer" onClick={() => onSearchChange("")} />
             </Badge>
           )}
           {category !== "all" && (
             <Badge variant="secondary" className="gap-1">
-              {categories.find(c => c.id === category)?.name}
+              {t(`categories.${category}`)}
               <X className="w-3 h-3 cursor-pointer" onClick={() => onCategoryChange("all")} />
             </Badge>
           )}
@@ -134,13 +122,8 @@ export function ExpenseFilters({
               <X className="w-3 h-3 cursor-pointer" onClick={() => onDateRangeChange(undefined)} />
             </Badge>
           )}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={onClearFilters}
-            className="text-destructive hover:text-destructive"
-          >
-            Clear all
+          <Button variant="ghost" size="sm" onClick={onClearFilters} className="text-destructive hover:text-destructive">
+            {t("common.clearAll")}
           </Button>
         </div>
       )}

@@ -1,4 +1,5 @@
 import { Sparkles } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 
 interface AIBadgeProps {
@@ -8,8 +9,9 @@ interface AIBadgeProps {
 }
 
 export function AIBadge({ variant = "default", animated = true, className }: AIBadgeProps) {
+  const { t } = useTranslation();
   const baseStyles = "inline-flex items-center gap-1 rounded-full font-medium";
-  
+
   const variants = {
     default: "px-3 py-1 text-xs gradient-ai text-primary-foreground",
     small: "px-2 py-0.5 text-[10px] gradient-ai text-primary-foreground",
@@ -25,7 +27,7 @@ export function AIBadge({ variant = "default", animated = true, className }: AIB
   return (
     <span className={cn(baseStyles, variants[variant], animated && "ai-pulse", className)}>
       <Sparkles className={cn(iconSizes[variant], animated && "animate-spin-slow")} />
-      AI
+      {t("ai.badge")}
     </span>
   );
 }
