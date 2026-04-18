@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { BudgetCategory, formatCurrency } from "@/data/budgetData";
+import { BudgetCategory } from "@/data/budgetData";
+import { usePreferences } from "@/contexts/PreferencesContext";
 
 interface EditBudgetDialogProps {
   category: BudgetCategory | null;
@@ -13,7 +15,13 @@ interface EditBudgetDialogProps {
 }
 
 export function EditBudgetDialog({ category, open, onOpenChange, onSave }: EditBudgetDialogProps) {
-  const [amount, setAmount] = useState(category?.allocated.toString() || "");
+  const { t } = useTranslation();
+  const { formatCurrency } = usePreferences();
+  const [amount, setAmount] = useState("");
+
+  useEffect(() => {
+    setAmount(category?.allocated.toString() || "");
+  }, [category]);
 
   const handleSave = () => {
     if (category && amount) {
@@ -26,38 +34,27 @@ export function EditBudgetDialog({ category, open, onOpenChange, onSave }: EditB
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[400px]">
         <DialogHeader>
-          <DialogTitle>Edit Budget</DialogTitle>
+          <DialogTitle>{t("budgetPage.editBudget")}</DialogTitle>
         </DialogHeader>
         {category && (
           <div className="space-y-4 py-4">
             <div className="space-y-2">
-              <Label className="text-muted-foreground">Category</Label>
-              <p className="font-medium text-foreground">{category.name}</p>
+              <Label className="text-muted-foreground">{t("budgetPage.category")}</Label>
+              <p className="font-medium text-foreground">{t(`categories.${category.categoryId}`)}</p>
             </div>
             <div className="space-y-2">
-              <Label className="text-muted-foreground">Current Spending</Label>
+              <Label className="text-muted-foreground">{t("budgetPage.currentSpending")}</Label>
               <p className="font-medium text-foreground">{formatCurrency(category.spent)}</p>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="budget-amount">Budget Amount (₺)</Label>
-              <Input
-                id="budget-amount"
-                type="number"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                placeholder="Enter budget amount"
-                className="text-lg"
-              />
+              <Label htmlFor="budget-amount">{t("budgetPage.budgetAmount")}</Label>
+              <Input id="budget-amount" type="number" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder={t("budgetPage.enterAmount")} className="text-lg" />
             </div>
           </div>
         )}
         <DialogFooter>
-          <Button variant="outline" onClick={() => onOpenChange(false)}>
-            Cancel
-          </Button>
-          <Button onClick={handleSave}>
-            Save Changes
-          </Button>
+          <Button variant="outline" onClick={() => onOpenChange(false)}>{t("common.cancel")}</Button>
+          <Button onClick={handleSave}>{t("common.saveChanges")}</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

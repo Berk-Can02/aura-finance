@@ -1,52 +1,25 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Bell, X, AlertTriangle, TrendingUp, Calendar, CreditCard, Sparkles } from "lucide-react";
+import { Bell, X, AlertTriangle, TrendingUp, Calendar, Sparkles } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 import { AIBadge } from "./AIBadge";
 
 interface SmartAlert {
   id: string;
   type: "warning" | "insight" | "reminder" | "achievement";
-  title: string;
-  message: string;
-  time: string;
+  titleKey: string;
+  messageKey: string;
+  timeKey: string;
+  timeCount?: number;
   priority: "high" | "medium" | "low";
-  dismissed?: boolean;
 }
 
 const mockAlerts: SmartAlert[] = [
-  {
-    id: "1",
-    type: "warning",
-    title: "Budget Limit Approaching",
-    message: "You've used 85% of your Food budget. AI suggests reducing dining out by 2 meals this week.",
-    time: "2 hours ago",
-    priority: "high",
-  },
-  {
-    id: "2",
-    type: "insight",
-    title: "Spending Pattern Detected",
-    message: "AI noticed you spend 40% more on weekends. Consider setting weekend-specific limits.",
-    time: "5 hours ago",
-    priority: "medium",
-  },
-  {
-    id: "3",
-    type: "reminder",
-    title: "Bill Due Tomorrow",
-    message: "Your electricity bill of $145 is due tomorrow. Auto-pay is not enabled.",
-    time: "1 day ago",
-    priority: "high",
-  },
-  {
-    id: "4",
-    type: "achievement",
-    title: "Savings Goal Progress",
-    message: "Great job! You're 15% ahead of your monthly savings goal. Keep it up!",
-    time: "2 days ago",
-    priority: "low",
-  },
+  { id: "1", type: "warning", titleKey: "ai.alerts.budgetTitle", messageKey: "ai.alerts.budgetMsg", timeKey: "ai.alerts.hoursAgo", timeCount: 2, priority: "high" },
+  { id: "2", type: "insight", titleKey: "ai.alerts.patternTitle", messageKey: "ai.alerts.patternMsg", timeKey: "ai.alerts.hoursAgo", timeCount: 5, priority: "medium" },
+  { id: "3", type: "reminder", titleKey: "ai.alerts.billTitle", messageKey: "ai.alerts.billMsg", timeKey: "ai.alerts.dayAgo", priority: "high" },
+  { id: "4", type: "achievement", titleKey: "ai.alerts.savingsTitle", messageKey: "ai.alerts.savingsMsg", timeKey: "ai.alerts.daysAgo", timeCount: 2, priority: "low" },
 ];
 
 const alertConfig = {
@@ -56,18 +29,13 @@ const alertConfig = {
   achievement: { icon: Sparkles, color: "text-success", bg: "bg-success/10", border: "border-success/30" },
 };
 
-const priorityStyles = {
-  high: "ring-2 ring-warning/30",
-  medium: "",
-  low: "opacity-80",
-};
+const priorityStyles = { high: "ring-2 ring-warning/30", medium: "", low: "opacity-80" };
 
 export function AISmartAlerts() {
+  const { t } = useTranslation();
   const [alerts, setAlerts] = useState(mockAlerts);
 
-  const dismissAlert = (id: string) => {
-    setAlerts((prev) => prev.filter((alert) => alert.id !== id));
-  };
+  const dismissAlert = (id: string) => setAlerts((prev) => prev.filter((a) => a.id !== id));
 
   return (
     <Card className="border-primary/20">
@@ -77,10 +45,10 @@ export function AISmartAlerts() {
             <div className="p-2 rounded-lg gradient-ai">
               <Bell className="w-5 h-5 text-primary-foreground" />
             </div>
-            Smart Notifications
+            {t("ai.smartNotifications")}
             <AIBadge variant="inline" />
           </CardTitle>
-          <span className="text-xs text-muted-foreground">{alerts.length} active</span>
+          <span className="text-xs text-muted-foreground">{alerts.length} {t("common.active")}</span>
         </div>
       </CardHeader>
       <CardContent>
@@ -88,21 +56,18 @@ export function AISmartAlerts() {
           {alerts.length === 0 ? (
             <div className="text-center py-8 text-muted-foreground">
               <Bell className="w-8 h-8 mx-auto mb-2 opacity-50" />
-              <p className="text-sm">All caught up! No new alerts.</p>
+              <p className="text-sm">{t("ai.allCaughtUp")}</p>
             </div>
           ) : (
             alerts.map((alert, index) => {
               const config = alertConfig[alert.type];
               const Icon = config.icon;
-
               return (
                 <div
                   key={alert.id}
                   className={cn(
                     "relative p-4 rounded-xl border transition-all duration-300 hover:shadow-md animate-fade-in",
-                    config.bg,
-                    config.border,
-                    priorityStyles[alert.priority]
+                    config.bg, config.border, priorityStyles[alert.priority]
                   )}
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
@@ -112,22 +77,23 @@ export function AISmartAlerts() {
                   >
                     <X className="w-3.5 h-3.5 text-muted-foreground" />
                   </button>
-
                   <div className="flex gap-3">
                     <div className={cn("p-2 rounded-lg bg-background/50", config.color)}>
                       <Icon className="w-4 h-4" />
                     </div>
                     <div className="flex-1 pr-6">
                       <div className="flex items-center gap-2">
-                        <h4 className="font-medium text-sm text-foreground">{alert.title}</h4>
+                        <h4 className="font-medium text-sm text-foreground">{t(alert.titleKey)}</h4>
                         {alert.priority === "high" && (
                           <span className="px-1.5 py-0.5 text-[10px] font-medium rounded bg-warning/20 text-warning">
-                            Urgent
+                            {t("ai.urgent")}
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{alert.message}</p>
-                      <span className="text-[10px] text-muted-foreground/70 mt-2 block">{alert.time}</span>
+                      <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{t(alert.messageKey)}</p>
+                      <span className="text-[10px] text-muted-foreground/70 mt-2 block">
+                        {t(alert.timeKey, { count: alert.timeCount })}
+                      </span>
                     </div>
                   </div>
                 </div>

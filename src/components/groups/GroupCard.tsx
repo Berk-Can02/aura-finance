@@ -1,8 +1,10 @@
 import { Users, ArrowRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Group, getTotalGroupExpenses, getUserBalance } from "@/data/groupsData";
+import { usePreferences } from "@/contexts/PreferencesContext";
 import { cn } from "@/lib/utils";
 
 interface GroupCardProps {
@@ -11,14 +13,13 @@ interface GroupCardProps {
 }
 
 export function GroupCard({ group, onClick }: GroupCardProps) {
+  const { t } = useTranslation();
+  const { formatCurrency } = usePreferences();
   const totalExpenses = getTotalGroupExpenses(group);
   const userBalance = getUserBalance(group, "user-1");
 
   return (
-    <Card
-      className="cursor-pointer transition-all duration-200 hover:shadow-lg hover:border-primary/30 group"
-      onClick={onClick}
-    >
+    <Card className="cursor-pointer transition-all duration-200 hover:shadow-lg hover:border-primary/30 group" onClick={onClick}>
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
@@ -35,7 +36,6 @@ export function GroupCard({ group, onClick }: GroupCardProps) {
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          {/* Members */}
           <div className="flex items-center gap-2">
             <div className="flex -space-x-2">
               {group.members.slice(0, 4).map((member) => (
@@ -52,18 +52,17 @@ export function GroupCard({ group, onClick }: GroupCardProps) {
               )}
             </div>
             <span className="text-sm text-muted-foreground">
-              {group.members.length} members
+              {group.members.length} {t("common.members")}
             </span>
           </div>
 
-          {/* Stats */}
           <div className="flex items-center justify-between pt-2 border-t border-border">
             <div>
-              <p className="text-xs text-muted-foreground">Total expenses</p>
-              <p className="font-semibold">${totalExpenses.toFixed(2)}</p>
+              <p className="text-xs text-muted-foreground">{t("groupsPage.totalExpenses")}</p>
+              <p className="font-semibold">{formatCurrency(totalExpenses)}</p>
             </div>
             <div className="text-right">
-              <p className="text-xs text-muted-foreground">Your balance</p>
+              <p className="text-xs text-muted-foreground">{t("groupsPage.yourBalance")}</p>
               <Badge
                 variant="secondary"
                 className={cn(
@@ -73,7 +72,7 @@ export function GroupCard({ group, onClick }: GroupCardProps) {
                   userBalance === 0 && "bg-muted text-muted-foreground"
                 )}
               >
-                {userBalance > 0 ? "+" : ""}{userBalance === 0 ? "Settled" : `$${userBalance.toFixed(2)}`}
+                {userBalance === 0 ? t("common.settled") : `${userBalance > 0 ? "+" : ""}${formatCurrency(userBalance)}`}
               </Badge>
             </div>
           </div>

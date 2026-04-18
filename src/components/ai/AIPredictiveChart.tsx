@@ -1,26 +1,37 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
+import { useTranslation } from "react-i18next";
 import { AIBadge } from "./AIBadge";
 import { Brain, TrendingUp } from "lucide-react";
+import { usePreferences } from "@/contexts/PreferencesContext";
 
 const historicalData = [
-  { month: "Aug", actual: 2400, predicted: null },
-  { month: "Sep", actual: 2800, predicted: null },
-  { month: "Oct", actual: 3100, predicted: null },
-  { month: "Nov", actual: 2900, predicted: null },
-  { month: "Dec", actual: 3500, predicted: null },
+  { monthKey: "Aug", actual: 2400, predicted: null },
+  { monthKey: "Sep", actual: 2800, predicted: null },
+  { monthKey: "Oct", actual: 3100, predicted: null },
+  { monthKey: "Nov", actual: 2900, predicted: null },
+  { monthKey: "Dec", actual: 3500, predicted: null },
 ];
 
 const predictedData = [
-  { month: "Dec", actual: 3500, predicted: 3500 },
-  { month: "Jan", actual: null, predicted: 3200 },
-  { month: "Feb", actual: null, predicted: 2900 },
-  { month: "Mar", actual: null, predicted: 3100 },
+  { monthKey: "Dec", actual: 3500, predicted: 3500 },
+  { monthKey: "Jan", actual: null, predicted: 3200 },
+  { monthKey: "Feb", actual: null, predicted: 2900 },
+  { monthKey: "Mar", actual: null, predicted: 3100 },
 ];
 
-const combinedData = [...historicalData, ...predictedData.slice(1)];
+const monthMap: Record<string, string> = {
+  Jan: "January", Feb: "February", Mar: "March", Apr: "April", May: "May", Jun: "June",
+  Jul: "July", Aug: "August", Sep: "September", Oct: "October", Nov: "November", Dec: "December",
+};
 
 export function AIPredictiveChart() {
+  const { t } = useTranslation();
+  const { formatCurrency } = usePreferences();
+  const combinedRaw = [...historicalData, ...predictedData.slice(1)];
+  const combinedData = combinedRaw.map((d) => ({ ...d, month: t(`months.${monthMap[d.monthKey]}`).slice(0, 3) }));
+  const todayLabel = t(`months.${monthMap.Dec}`).slice(0, 3);
+
   return (
     <Card className="border-primary/20 gradient-ai-subtle overflow-hidden">
       <CardHeader className="pb-2">
@@ -31,15 +42,15 @@ export function AIPredictiveChart() {
             </div>
             <div>
               <CardTitle className="text-lg font-semibold flex items-center gap-2">
-                Predictive Spending Analysis
+                {t("ai.predictiveTitle")}
                 <AIBadge variant="inline" />
               </CardTitle>
-              <p className="text-xs text-muted-foreground mt-0.5">AI forecasts your next 3 months</p>
+              <p className="text-xs text-muted-foreground mt-0.5">{t("ai.predictiveSubtitle")}</p>
             </div>
           </div>
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-success/10 border border-success/20">
             <TrendingUp className="w-4 h-4 text-success" />
-            <span className="text-sm font-medium text-success">12% savings projected</span>
+            <span className="text-sm font-medium text-success">{t("ai.savingsProjected", { percent: 12 })}</span>
           </div>
         </div>
       </CardHeader>
@@ -59,7 +70,7 @@ export function AIPredictiveChart() {
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" opacity={0.5} />
               <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} />
-              <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(v) => `$${v}`} />
+              <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(v) => formatCurrency(v, { maximumFractionDigits: 0 })} />
               <Tooltip
                 contentStyle={{
                   backgroundColor: "hsl(var(--card))",
@@ -68,11 +79,11 @@ export function AIPredictiveChart() {
                   boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
                 }}
                 formatter={(value: number, name: string) => [
-                  `$${value?.toLocaleString() || "N/A"}`,
-                  name === "actual" ? "Actual Spending" : "AI Prediction",
+                  value != null ? formatCurrency(value) : "—",
+                  name === "actual" ? t("ai.actualSpending") : t("ai.aiPrediction"),
                 ]}
               />
-              <ReferenceLine x="Dec" stroke="hsl(var(--muted-foreground))" strokeDasharray="5 5" label={{ value: "Today", position: "top", fill: "hsl(var(--muted-foreground))", fontSize: 11 }} />
+              <ReferenceLine x={todayLabel} stroke="hsl(var(--muted-foreground))" strokeDasharray="5 5" label={{ value: t("ai.today"), position: "top", fill: "hsl(var(--muted-foreground))", fontSize: 11 }} />
               <Area type="monotone" dataKey="actual" stroke="hsl(var(--primary))" strokeWidth={2} fill="url(#actualGradient)" dot={{ fill: "hsl(var(--primary))", strokeWidth: 2, r: 4 }} />
               <Area type="monotone" dataKey="predicted" stroke="hsl(var(--secondary))" strokeWidth={2} strokeDasharray="5 5" fill="url(#predictedGradient)" dot={{ fill: "hsl(var(--secondary))", strokeWidth: 2, r: 4 }} />
             </AreaChart>
@@ -81,11 +92,11 @@ export function AIPredictiveChart() {
         <div className="flex items-center justify-center gap-6 mt-4 text-sm">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-primary" />
-            <span className="text-muted-foreground">Actual Spending</span>
+            <span className="text-muted-foreground">{t("ai.actualSpending")}</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-secondary border-2 border-dashed border-secondary" />
-            <span className="text-muted-foreground">AI Prediction</span>
+            <span className="text-muted-foreground">{t("ai.aiPrediction")}</span>
           </div>
         </div>
       </CardContent>
