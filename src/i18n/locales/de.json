@@ -137,6 +137,48 @@
     "budgetAmount": "Budgetbetrag",
     "enterAmount": "Budgetbetrag eingeben"
   },
+  "loansPage": {
+    "title": "Kredite",
+    "subtitle": "Verfolgen Sie geliehenes oder verliehenes Geld",
+    "addLoan": "Eintrag hinzufügen",
+    "editLoan": "Eintrag bearbeiten",
+    "formDescription": "Erfassen Sie an jemanden verliehenes oder von jemandem geliehenes Geld.",
+    "type": "Art",
+    "lent": "Verliehen",
+    "borrowed": "Geliehen",
+    "amount": "Betrag",
+    "person": "Person",
+    "personPlaceholder": "Name oder Kontakt",
+    "date": "Datum",
+    "pickDate": "Datum wählen",
+    "descriptionOptional": "Beschreibung (optional)",
+    "descriptionPlaceholder": "Wofür war dieser Kredit?",
+    "totalLent": "Gesamt verliehen (offen)",
+    "totalBorrowed": "Gesamt geliehen (offen)",
+    "netBalance": "Nettosaldo",
+    "tabAll": "Alle",
+    "tabLent": "Verliehen",
+    "tabBorrowed": "Geliehen",
+    "tabSettled": "Beglichen",
+    "searchPlaceholder": "Nach Person oder Notiz suchen...",
+    "empty": "Keine Einträge",
+    "emptyDesc": "Beginnen Sie mit einem verliehenen oder geliehenen Betrag.",
+    "settled": "Beglichen",
+    "markSettled": "Als beglichen markieren",
+    "markOpen": "Wieder öffnen",
+    "deleteTitle": "Eintrag löschen?",
+    "deleteDesc": "Diese Aktion kann nicht rückgängig gemacht werden. Der Eintrag wird dauerhaft entfernt.",
+    "errors": {
+      "amountInvalid": "Gültigen positiven Betrag eingeben",
+      "personRequired": "Name der Person ist erforderlich",
+      "dateRequired": "Bitte Datum auswählen"
+    },
+    "toasts": {
+      "added": "Eintrag erfolgreich hinzugefügt",
+      "updated": "Eintrag aktualisiert",
+      "deleted": "Eintrag gelöscht"
+    }
+  },
   "addExpensePage": {
     "title": "Ausgabe hinzufügen",
     "subtitle": "Wählen Sie Ihre bevorzugte Methode zur Erfassung einer Ausgabe",
