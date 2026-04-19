@@ -5,6 +5,7 @@ import {
   List,
   Users,
   PiggyBank,
+  HandCoins,
   Settings,
   ChevronLeft,
   ChevronRight,
@@ -30,6 +31,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
     { path: "/expenses", labelKey: "nav.expenses", icon: List },
     { path: "/groups", labelKey: "nav.groups", icon: Users },
     { path: "/budget", labelKey: "nav.budget", icon: PiggyBank },
+    { path: "/loans", labelKey: "nav.loans", icon: HandCoins },
     { path: "/settings", labelKey: "nav.settings", icon: Settings },
   ];
 
