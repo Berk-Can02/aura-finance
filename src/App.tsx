@@ -5,12 +5,14 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { PreferencesProvider } from "@/contexts/PreferencesContext";
+import { LoansProvider } from "@/contexts/LoansContext";
 import "@/i18n";
 import Dashboard from "./pages/Dashboard";
 import AddExpense from "./pages/AddExpense";
 import Expenses from "./pages/Expenses";
 import Groups from "./pages/Groups";
 import Budget from "./pages/Budget";
+import Loans from "./pages/Loans";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
@@ -19,23 +21,26 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <PreferencesProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <AppLayout>
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/add-expense" element={<AddExpense />} />
-              <Route path="/expenses" element={<Expenses />} />
-              <Route path="/groups" element={<Groups />} />
-              <Route path="/budget" element={<Budget />} />
-              <Route path="/settings" element={<Settings />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </AppLayout>
-        </BrowserRouter>
-      </TooltipProvider>
+      <LoansProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <AppLayout>
+              <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/add-expense" element={<AddExpense />} />
+                <Route path="/expenses" element={<Expenses />} />
+                <Route path="/groups" element={<Groups />} />
+                <Route path="/budget" element={<Budget />} />
+                <Route path="/loans" element={<Loans />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </AppLayout>
+          </BrowserRouter>
+        </TooltipProvider>
+      </LoansProvider>
     </PreferencesProvider>
   </QueryClientProvider>
 );
